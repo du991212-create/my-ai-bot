@@ -1,2 +1,5 @@
 streamlit
 openai
+pdfplumber
+requests
+beautifulsoup4
