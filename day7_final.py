@@ -96,7 +96,7 @@ with tab1:
     # === 下面是原来的输入框 ===
     raw_input = st.text_input("请粘贴 Bilibili 视频链接 (直接粘，不用删中文):")
     # === 🎁 专属彩蛋：小井 ===
-    if raw_input == "小井":
+    if raw_input == "小井" or "井飞玥" or "杜覃" or "大杜" or "我喜欢你":
         st.snow()  # 1. 满屏飞气球 (或者换成 st.snow() 下雪)
 
         # 2. 弹出专属卡片
@@ -104,13 +104,19 @@ with tab1:
 
         # 3. 写一段只有她能看见的话 (Markdown 格式)
         st.markdown("""
-            ### 💖 To 小井：
-            
-            这个网站全世界都能用
-            但这个彩蛋，是为小井一个人留的后门
-            
-            要好好吃午饭小井🌻
-            """)
+                <div style='color: #FF4B4B; font-size: 24px; font-weight: bold;'>
+                    💖 To 小井：
+                </div>
+
+                <div style='font-size: 18px; line-height: 1.8; margin-top: 15px;'>
+                    这个网站全世界都能用，<br>
+                    <b>但这个彩蛋，是为小井一个人留的后门。</b>
+                </div>
+
+                <div style='text-align: right; font-size: 14px; color: gray; margin-top: 30px;'>
+                    要好好吃午饭🌻！
+                </div>
+                """, unsafe_allow_html=True)
 
         # 4. (可选) 如果你有她的照片，可以取消下面这行的注释
         st.image("xiaojing.jpg")
