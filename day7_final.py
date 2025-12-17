@@ -95,7 +95,27 @@ with tab1:
 
     # === 下面是原来的输入框 ===
     raw_input = st.text_input("请粘贴 Bilibili 视频链接 (直接粘，不用删中文):")
+    # === 🎁 专属彩蛋：小井 ===
+    if raw_input == "小井":
+        st.snow()  # 1. 满屏飞气球 (或者换成 st.snow() 下雪)
 
+        # 2. 弹出专属卡片
+        st.success("✨ 捕捉到一只可爱的小井！")
+
+        # 3. 写一段只有她能看见的话 (Markdown 格式)
+        st.markdown("""
+            ### 💖 To 小井：
+            
+            其实这个网站全世界都能用，
+            **但这个彩蛋，是大杜为小井一个人留的后门。**
+
+            天天开心，我喜欢你！
+            """)
+
+        # 4. (可选) 如果你有她的照片，可以取消下面这行的注释
+        st.image("xiaojing.jpg")
+
+        st.stop()  # 🛑 关键：让程序停在这里，不要去爬虫，防止报错
     if st.button("开始分析", key="btn_url"):
         if not raw_input:
             st.warning("请先粘贴内容！")
