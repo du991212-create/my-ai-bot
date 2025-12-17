@@ -63,6 +63,26 @@ tab1, tab2 = st.tabs(["🔗 链接分析模式", "📝 文本粘贴模式"])
 
 # --- 模式 A: 链接分析 ---
 with tab1:
+    # === 🆕 新增：教程折叠面板 ===
+    with st.expander("🤔 手机 B站 怎么复制链接？(点我看教程)"):
+        st.write("跟着下图操作，只需 3 步：")
+
+        # 把屏幕分成 3 列，并排显示图片
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            st.caption("1. 点击视频下方的分享箭头")
+            st.image("step1.jpg", use_column_width=True)
+
+        with col2:
+            st.caption("2. 在菜单里找到“复制链接”")
+            st.image("step2.jpg", use_column_width=True)
+
+        with col3:
+            st.caption("3. 提示“复制成功”即可粘贴")
+            st.image("step3.jpg", use_column_width=True)
+
+    # === 下面是原来的输入框 ===
     raw_input = st.text_input("请粘贴 Bilibili 视频链接 (直接粘，不用删中文):")
 
     if st.button("开始分析", key="btn_url"):
