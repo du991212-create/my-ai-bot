@@ -175,9 +175,9 @@ with tab1:
 
             else:
                 st.error("❌ 没在输入框里找到 http 链接，请检查一下粘贴的内容！")
-# # --- 模式 B: 手动文本 ---
-# with tab2:
-#     st.write("如果你只有文字内容，或者爬虫失败了，可以用这个模式：")
+# --- 模式 B: 手动文本 ---
+with tab2:
+    st.write("大杜还在学习中")
 #     manual_text = st.text_area("把标题和简介粘在这里：", height=200)
 #     triggers = ["小井", "井飞玥", "大杜", "杜覃", "我喜欢你"]
 #
