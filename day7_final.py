@@ -20,38 +20,49 @@ client = OpenAI(api_key=MY_API_KEY, base_url=MY_BASE_URL)
 # ================= 2. 爬虫核心功能 (Day 2 复习) =================
 def get_bilibili_info(url):
     """
-    输入 B站 链接，返回视频的标题和简介
+    输入 B站 链接，返回视频的标题和简介 (防弹版)
     """
+    # 1. 模拟浏览器 (防止被拦截)
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         "Referer": "https://www.bilibili.com/"
     }
 
     try:
-        response = requests.get(url, headers=headers)
-        response.encoding = 'utf-8'  # 防止乱码
+        # allow_redirects=True 会自动处理 b23.tv 的跳转
+        response = requests.get(url, headers=headers, allow_redirects=True)
+        response.encoding = 'utf-8'
 
-        # 使用 BeautifulSoup 解析网页骨架
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        # 提取标题 (查找 <h1 class="video-title">)
-        # 注意：B站的网页结构可能会变，如果爬不到，通常是 class 名变了
+        # === 🛡️ 安全提取标题 (Safe Extraction) ===
+        # 方案 A: 找 h1 标签 (电脑版常见)
         title_tag = soup.find('h1', class_="video-title")
-        if not title_tag:
-            # 备用方案：直接找 meta 标签
-            title = soup.find('meta', {"property": "og:title"})['content']
-        else:
+        if title_tag:
             title = title_tag.get_text().strip()
+        else:
+            # 方案 B: 找 meta og:title (通用)
+            meta_title = soup.find('meta', {"property": "og:title"})
+            if meta_title:
+                title = meta_title['content']
+            else:
+                # 方案 C: 实在找不到，就用网页标题
+                title = soup.title.string if soup.title else "未知标题"
 
-        # 提取简介 (查找 <meta name="description">)
-        desc = soup.find('meta', {"name": "description"})['content']
+        # === 🛡️ 安全提取简介 ===
+        # 尝试找 meta description
+        meta_desc = soup.find('meta', {"name": "description"})
+        if meta_desc:
+            desc = meta_desc['content']
+        else:
+            # 备用：找 og:description
+            og_desc = soup.find('meta', {"property": "og:description"})
+            desc = og_desc['content'] if og_desc else "无法获取简介，请直接根据标题分析。"
 
         return title, desc
 
     except Exception as e:
         return None, f"爬取失败: {e}"
-
-
 # ================= 3. 网页界面 (Day 4 复习) =================
 st.set_page_config(page_title="B站省流神器", page_icon="📺")
 st.title("📺 B站视频 AI 省流助手")
