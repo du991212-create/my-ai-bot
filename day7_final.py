@@ -175,47 +175,47 @@ with tab1:
 
             else:
                 st.error("❌ 没在输入框里找到 http 链接，请检查一下粘贴的内容！")
-# --- 模式 B: 手动文本 ---
-with tab2:
-    st.write("如果你只有文字内容，或者爬虫失败了，可以用这个模式：")
-    manual_text = st.text_area("把标题和简介粘在这里：", height=200)
-    triggers = ["小井", "井飞玥", "大杜", "杜覃", "我喜欢你"]
-
-    if raw_input in triggers:
-        st.snow()  # 1. 满屏飞气球 (或者换成 st.snow() 下雪)
-
-        # 2. 弹出专属卡片
-        st.success("✨ 捕捉到一只可爱的小井！")
-
-        # 3. 写一段只有她能看见的话 (Markdown 格式)
-        st.markdown("""
-                    <div style='color: #FF4B4B; font-size: 24px; font-weight: bold;'>
-                        💖 To 小井：
-                    </div>
-
-                    <div style='font-size: 18px; line-height: 1.8; margin-top: 15px;'>
-                        这个网站全世界都能用，<br>
-                        <b>但这个彩蛋是为小井一人留的后门。</b>
-                    </div>
-
-                    <div style='text-align: right; font-size: 14px; color: gray; margin-top: 30px;'>
-                        要好好吃午饭🌻！
-                    </div>
-                    """, unsafe_allow_html=True)
-
-        # 4. (可选) 如果你有她的照片，可以取消下面这行的注释
-        st.image("xiaojing.jpg")
-
-        st.stop()  # 🛑 关键：让程序停在这里，不要去爬虫，防止报错
-    if st.button("开始分析", key="btn_text"):
-        if manual_text:
-            with st.spinner("AI 正在阅读..."):
-                response = client.chat.completions.create(
-                    model=MY_MODEL_NAME,
-                    messages=[
-                        {"role": "system", "content": "你是一个毒舌视频评论家。"},
-                        {"role": "user", "content": f"请分析以下内容：\n{manual_text}"}
-                    ]
-                )
-                st.subheader("🤖 AI 分析报告")
-                st.markdown(response.choices[0].message.content)
+# # --- 模式 B: 手动文本 ---
+# with tab2:
+#     st.write("如果你只有文字内容，或者爬虫失败了，可以用这个模式：")
+#     manual_text = st.text_area("把标题和简介粘在这里：", height=200)
+#     triggers = ["小井", "井飞玥", "大杜", "杜覃", "我喜欢你"]
+#
+#     if raw_input in triggers:
+#         st.snow()  # 1. 满屏飞气球 (或者换成 st.snow() 下雪)
+#
+#         # 2. 弹出专属卡片
+#         st.success("✨ 捕捉到一只可爱的小井！")
+#
+#         # 3. 写一段只有她能看见的话 (Markdown 格式)
+#         st.markdown("""
+#                     <div style='color: #FF4B4B; font-size: 24px; font-weight: bold;'>
+#                         💖 To 小井：
+#                     </div>
+#
+#                     <div style='font-size: 18px; line-height: 1.8; margin-top: 15px;'>
+#                         这个网站全世界都能用，<br>
+#                         <b>但这个彩蛋是为小井一人留的后门。</b>
+#                     </div>
+#
+#                     <div style='text-align: right; font-size: 14px; color: gray; margin-top: 30px;'>
+#                         要好好吃午饭🌻！
+#                     </div>
+#                     """, unsafe_allow_html=True)
+#
+#         # 4. (可选) 如果你有她的照片，可以取消下面这行的注释
+#         st.image("xiaojing.jpg")
+#
+#         st.stop()  # 🛑 关键：让程序停在这里，不要去爬虫，防止报错
+#     if st.button("开始分析", key="btn_text"):
+#         if manual_text:
+#             with st.spinner("AI 正在阅读..."):
+#                 response = client.chat.completions.create(
+#                     model=MY_MODEL_NAME,
+#                     messages=[
+#                         {"role": "system", "content": "你是一个毒舌视频评论家。"},
+#                         {"role": "user", "content": f"请分析以下内容：\n{manual_text}"}
+#                     ]
+#                 )
+#                 st.subheader("🤖 AI 分析报告")
+#                 st.markdown(response.choices[0].message.content)
