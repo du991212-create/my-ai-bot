@@ -110,7 +110,7 @@ with tab1:
 
                 <div style='font-size: 18px; line-height: 1.8; margin-top: 15px;'>
                     这个网站全世界都能用，<br>
-                    <b>但这个彩蛋，是为小井一个人留的后门。</b>
+                    <b>但这个彩蛋是为小井一人留的后门。</b>
                 </div>
 
                 <div style='text-align: right; font-size: 14px; color: gray; margin-top: 30px;'>
